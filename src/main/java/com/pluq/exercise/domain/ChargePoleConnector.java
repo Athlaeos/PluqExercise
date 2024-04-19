@@ -2,18 +2,21 @@ package com.pluq.exercise.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.util.Date;
 
 public class ChargePoleConnector {
-    @Getter private final String id;
-    @Getter private final String standard;
-    @Getter private final String format;
-    @Getter private final ChargingPowerType power_type;
-    @Getter private final int voltage;
-    @Getter private final int amperage;
-    @Getter @Setter private Date last_updated;
-    @Getter private final String tariff_id;
+    @Getter private String id;
+    @Getter private String standard;
+    @Getter private String format;
+    @Getter @BsonProperty("power_type") private ChargingPowerType chargingPowerType;
+    @Getter private int voltage;
+    @Getter private int amperage;
+    @Getter @Setter @BsonProperty("last_updated") private Date lastUpdated;
+    @Getter @BsonProperty("tariff_id") private String tariffId;
+
+    public ChargePoleConnector(){}
 
     public ChargePoleConnector(String id,
                                String standard,
@@ -26,10 +29,10 @@ public class ChargePoleConnector {
         this.id = id;
         this.standard = standard;
         this.format = format;
-        this.power_type = power_type;
+        this.chargingPowerType = power_type;
         this.voltage = voltage;
         this.amperage = amperage;
-        this.last_updated = last_updated;
-        this.tariff_id = tariff_id;
+        this.lastUpdated = last_updated;
+        this.tariffId = tariff_id;
     }
 }

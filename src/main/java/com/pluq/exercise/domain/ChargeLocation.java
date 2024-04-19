@@ -2,25 +2,28 @@ package com.pluq.exercise.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
 public class ChargeLocation {
-    @Getter private final long id;
-    @Getter private final LocationType type;
-    @Getter private final String address;
-    @Getter private final String city;
-    @Getter private final String postal_code;
-    @Getter private final String country;
-    @Getter private final String name;
-    @Getter private final LocationCoordinates coordinates;
-    @Getter private final boolean charging_when_closed;
-    @Getter @Setter private Date last_updated;
-    @Getter private final Collection<ChargePole> evses = new HashSet<>();
+    @Getter private String id;
+    @Getter private LocationType type;
+    @Getter private String address;
+    @Getter private String city;
+    @Getter @BsonProperty("postal_code") private String postalCode;
+    @Getter private String country;
+    @Getter private String name;
+    @Getter private LocationCoordinates coordinates;
+    @Getter @BsonProperty("charging_when_closed") private boolean chargingWhenClosed;
+    @Getter @Setter @BsonProperty("last_updated") private Date lastUpdated;
+    @Getter @BsonProperty("evses") private final Collection<ChargePole> chargePoles = new HashSet<>();
 
-    public ChargeLocation(long id,
+    public ChargeLocation(){}
+
+    public ChargeLocation(String id,
                           LocationType locationType,
                           String address,
                           String city,
@@ -35,12 +38,12 @@ public class ChargeLocation {
         this.type = locationType;
         this.address = address;
         this.city = city;
-        this.postal_code = postal_code;
+        this.postalCode = postal_code;
         this.country = country;
         this.name = name;
         this.coordinates = coordinates;
-        this.charging_when_closed = charging_when_closed;
-        this.last_updated = last_updated;
-        this.evses.addAll(evses);
+        this.chargingWhenClosed = charging_when_closed;
+        this.lastUpdated = last_updated;
+        this.chargePoles.addAll(evses);
     }
 }
