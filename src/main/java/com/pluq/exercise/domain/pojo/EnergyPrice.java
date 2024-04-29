@@ -11,6 +11,7 @@ import java.util.Date;
 public class EnergyPrice {
     @Getter private String id;
     @Getter private String country;
+    @Getter private double price;
     @Getter private String buyVolume;
     @Getter private String sellVolume;
     @Getter private String currency;
@@ -22,6 +23,7 @@ public class EnergyPrice {
 
     public EnergyPrice(String id,
                        String country,
+                       double price,
                        String buyVolume,
                        String sellVolume,
                        String currency,

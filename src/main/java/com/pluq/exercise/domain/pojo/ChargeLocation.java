@@ -1,17 +1,17 @@
 package com.pluq.exercise.domain.pojo;
 
-import com.pluq.exercise.Constants;
 import com.pluq.exercise.domain.LocationType;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 
+import java.time.ZonedDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 
-@Document("charge_poles")
+@Document("charging_poles")
 public class ChargeLocation {
     @Getter @Id private String id;
     @Getter private LocationType type;
@@ -22,7 +22,7 @@ public class ChargeLocation {
     @Getter private String name;
     @Getter private LocationCoordinates coordinates;
     @Getter private boolean charging_when_closed;
-    @Getter @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) private Date last_updated;
+    @Getter @Field(targetType = FieldType.DATE_TIME) private ZonedDateTime last_updated;
     @Getter private final Collection<ChargePole> evses = new HashSet<>();
 
     public ChargeLocation(){}
@@ -36,7 +36,7 @@ public class ChargeLocation {
                           String name,
                           LocationCoordinates coordinates,
                           boolean charging_when_closed,
-                          Date last_updated,
+                          ZonedDateTime last_updated,
                           Collection<ChargePole> evses) {
         this.id = id;
         this.type = locationType;

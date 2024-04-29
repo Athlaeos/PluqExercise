@@ -5,6 +5,7 @@ import com.pluq.exercise.domain.pojo.MeterValue;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Date;
 
 @Service
 public interface IEnergyPriceService {
@@ -13,6 +14,8 @@ public interface IEnergyPriceService {
     void addOrUpdatePrice(EnergyPrice price);
 
     void removePrice(String id);
+
+    EnergyPrice priceForDateTime(String country, Date date);
 
     float getEnergyPriceOverTime(String country, Collection<MeterValue> recordings);
 }
