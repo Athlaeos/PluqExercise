@@ -1,4 +1,4 @@
-package com.pluq.exercise.domain;
+package com.pluq.exercise.domain.pojo;
 
 import lombok.Getter;
 

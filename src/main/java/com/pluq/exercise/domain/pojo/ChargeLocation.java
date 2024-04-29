@@ -1,25 +1,29 @@
-package com.pluq.exercise.domain;
+package com.pluq.exercise.domain.pojo;
 
+import com.pluq.exercise.Constants;
+import com.pluq.exercise.domain.LocationType;
 import lombok.Getter;
-import lombok.Setter;
-import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
+@Document("charge_poles")
 public class ChargeLocation {
-    @Getter private String id;
+    @Getter @Id private String id;
     @Getter private LocationType type;
     @Getter private String address;
     @Getter private String city;
-    @Getter @BsonProperty("postal_code") private String postalCode;
+    @Getter private String postal_code;
     @Getter private String country;
     @Getter private String name;
     @Getter private LocationCoordinates coordinates;
-    @Getter @BsonProperty("charging_when_closed") private boolean chargingWhenClosed;
-    @Getter @Setter @BsonProperty("last_updated") private Date lastUpdated;
-    @Getter @BsonProperty("evses") private final Collection<ChargePole> chargePoles = new HashSet<>();
+    @Getter private boolean charging_when_closed;
+    @Getter @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) private Date last_updated;
+    @Getter private final Collection<ChargePole> evses = new HashSet<>();
 
     public ChargeLocation(){}
 
@@ -33,17 +37,17 @@ public class ChargeLocation {
                           LocationCoordinates coordinates,
                           boolean charging_when_closed,
                           Date last_updated,
-                          Collection<ChargePole> evses){
+                          Collection<ChargePole> evses) {
         this.id = id;
         this.type = locationType;
         this.address = address;
         this.city = city;
-        this.postalCode = postal_code;
+        this.postal_code = postal_code;
         this.country = country;
         this.name = name;
         this.coordinates = coordinates;
-        this.chargingWhenClosed = charging_when_closed;
-        this.lastUpdated = last_updated;
-        this.chargePoles.addAll(evses);
+        this.charging_when_closed = charging_when_closed;
+        this.last_updated = last_updated;
+        this.evses.addAll(evses);
     }
 }

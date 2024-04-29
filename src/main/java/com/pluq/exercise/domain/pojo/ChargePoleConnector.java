@@ -1,20 +1,23 @@
-package com.pluq.exercise.domain;
+package com.pluq.exercise.domain.pojo;
 
+import com.pluq.exercise.Constants;
+import com.pluq.exercise.domain.ChargingPowerType;
 import lombok.Getter;
-import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class ChargePoleConnector {
-    @Getter private String id;
-    @Getter private String standard;
-    @Getter private String format;
+    @Getter @BsonProperty private String id;
+    @Getter @BsonProperty private String standard;
+    @Getter @BsonProperty private String format;
     @Getter @BsonProperty("power_type") private ChargingPowerType chargingPowerType;
-    @Getter private int voltage;
-    @Getter private int amperage;
-    @Getter @Setter @BsonProperty("last_updated") private Date lastUpdated;
-    @Getter @BsonProperty("tariff_id") private String tariffId;
+    @Getter @BsonProperty private int voltage;
+    @Getter @BsonProperty private int amperage;
+    @Getter @DateTimeFormat(pattern = Constants.DATE_TIME_FORMAT) private Date last_updated;
+    @Getter private String tariff_id;
 
     public ChargePoleConnector(){}
 
@@ -32,7 +35,7 @@ public class ChargePoleConnector {
         this.chargingPowerType = power_type;
         this.voltage = voltage;
         this.amperage = amperage;
-        this.lastUpdated = last_updated;
-        this.tariffId = tariff_id;
+        this.last_updated = last_updated;
+        this.tariff_id = tariff_id;
     }
 }

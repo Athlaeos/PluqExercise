@@ -1,35 +1,30 @@
 package com.pluq.exercise;
 
-import com.pluq.exercise.data.charge_locations.GsonChargeLocationFetcher;
-import com.pluq.exercise.data.charge_locations.IChargeLocationFetcher;
-import com.pluq.exercise.data.meter.GsonMeterValueFetcher;
-import com.pluq.exercise.data.meter.IMeterValueFetcher;
-import com.pluq.exercise.service.ILocationService;
-import com.pluq.exercise.service.IMeterValueService;
-import com.pluq.exercise.service.LocationService;
-import com.pluq.exercise.service.MeterValueService;
+import com.pluq.exercise.data.meter.GsonMeterValueDataAccess;
+import com.pluq.exercise.data.meter.IMeterValueDataAccess;
+import com.pluq.exercise.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfiguration {
     @Bean
-    public IChargeLocationFetcher locationFetcher(){
-        return new GsonChargeLocationFetcher();
+    public ILocationService locationService(){
+        return new LocationService();
     }
 
     @Bean
-    public ILocationService locationService(IChargeLocationFetcher locationFetcher){
-        return new LocationService(locationFetcher);
+    public IMeterValueDataAccess meterValueFetcher() {
+        return new GsonMeterValueDataAccess();
     }
 
     @Bean
-    public IMeterValueFetcher meterValueFetcher() {
-        return new GsonMeterValueFetcher();
-    }
-
-    @Bean
-    public IMeterValueService meterValueService(IMeterValueFetcher meterValueFetcher){
+    public IMeterValueService meterValueService(IMeterValueDataAccess meterValueFetcher){
         return new MeterValueService(meterValueFetcher);
+    }
+
+    @Bean
+    public IReportService reportService(){
+        return new ReportService();
     }
 }
