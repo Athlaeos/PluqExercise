@@ -6,7 +6,6 @@ import com.pluq.exercise.domain.pojo.MeterValue;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Map;
 
 @Service
 public interface IMeterValueService {
@@ -14,7 +13,7 @@ public interface IMeterValueService {
 
     Collection<MeterValue> getByLocation(ChargeLocation location);
 
-    Map<String, MeterValue> getByChargingPole(ChargePole pole);
+    Collection<MeterValue> getByChargingPole(ChargePole pole);
 
     Collection<MeterValue> getByTransactionId(String transactionId);
 }
